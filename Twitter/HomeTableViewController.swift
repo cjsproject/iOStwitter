@@ -21,7 +21,8 @@ class HomeTableViewController: UITableViewController {
         
         tweetRefreshControl.addTarget(self, action: #selector(loadTweets), for: .valueChanged)
         tableView.refreshControl = tweetRefreshControl
-      
+        self.tableView.rowHeight = UITableView.automaticDimension
+        self.tableView.estimatedRowHeight = 120
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -104,6 +105,10 @@ class HomeTableViewController: UITableViewController {
         let tweetContent = tweetArr[indexPath.row]["text"] as? String
         
         cell.tweetContentLabel.text = tweetContent
+        
+        cell.setFavorite(tweetArr[indexPath.row]["favorited"] as! Bool)
+        
+        cell.tweetId = tweetArr[indexPath.row]["id"] as! Int
         
         return cell
     }
